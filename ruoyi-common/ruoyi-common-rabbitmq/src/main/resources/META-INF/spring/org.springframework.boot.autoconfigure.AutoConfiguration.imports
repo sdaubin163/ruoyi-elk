@@ -1,0 +1,2 @@
+com.ruoyi.common.rabbitmq.configure.RabbitmqConfig
+com.ruoyi.common.rabbitmq.service.RabbitmqService

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.FpsMonMapper">
+    
+    <resultMap type="FpsMon" id="FpsMonResult">
+        <result property="id"    column="id"    />
+        <result property="traceid"    column="traceid"    />
+        <result property="requestTimestamp"    column="request_timestamp"    />
+        <result property="responseTimestamp"    column="response_timestamp"    />
+        <result property="processTime"    column="process_time"    />
+        <result property="requestDate"    column="request_date"    />
+        <result property="requestTime"    column="request_time"    />
+        <result property="responseDate"    column="response_date"    />
+        <result property="responseTime"    column="response_time"    />
+        <result property="url"    column="url"    />
+        <result property="sysId"    column="sys_id"    />
+        <result property="sysName"    column="sys_name"    />
+        <result property="transId"    column="trans_id"    />
+        <result property="transName"    column="trans_name"    />
+        <result property="transStatus"    column="trans_status"    />
+        <result property="additionMsg"    column="addition_msg"    />
+        <result property="remark1"    column="remark1"    />
+    </resultMap>
+
+    <sql id="selectFpsMonVo">
+        select id, traceid, request_timestamp, response_timestamp, process_time, request_date, request_time, response_date, response_time, url, sys_id, sys_name, trans_id, trans_name, trans_status, addition_msg, remark1 from fps_mon
+    </sql>
+
+    <select id="selectFpsMonList" parameterType="FpsMon" resultMap="FpsMonResult">
+        <include refid="selectFpsMonVo"/>
+        <where>  
+            <if test="traceid != null  and traceid != ''"> and traceid = #{traceid}</if>
+            <if test="requestDate != null  and requestDate != ''"> and request_date &gt;= #{requestDate}</if>
+            <if test="responseDate != null  and responseDate != ''"> and response_date &lt;= #{responseDate}</if>
+            <if test="sysId != null  and sysId != ''"> and sys_id = #{sysId}</if>
+        </where>
+    </select>
+    
+    <select id="selectFpsMonById" parameterType="String" resultMap="FpsMonResult">
+        <include refid="selectFpsMonVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertFpsMon" parameterType="FpsMon">
+        insert into fps_mon
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">id,</if>
+            <if test="traceid != null">traceid,</if>
+            <if test="requestTimestamp != null">request_timestamp,</if>
+            <if test="responseTimestamp != null">response_timestamp,</if>
+            <if test="processTime != null">process_time,</if>
+            <if test="requestDate != null">request_date,</if>
+            <if test="requestTime != null">request_time,</if>
+            <if test="responseDate != null">response_date,</if>
+            <if test="responseTime != null">response_time,</if>
+            <if test="url != null">url,</if>
+            <if test="sysId != null">sys_id,</if>
+            <if test="sysName != null">sys_name,</if>
+            <if test="transId != null">trans_id,</if>
+            <if test="transName != null">trans_name,</if>
+            <if test="transStatus != null">trans_status,</if>
+            <if test="additionMsg != null">addition_msg,</if>
+            <if test="remark1 != null">remark1,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">#{id},</if>
+            <if test="traceid != null">#{traceid},</if>
+            <if test="requestTimestamp != null">#{requestTimestamp},</if>
+            <if test="responseTimestamp != null">#{responseTimestamp},</if>
+            <if test="processTime != null">#{processTime},</if>
+            <if test="requestDate != null">#{requestDate},</if>
+            <if test="requestTime != null">#{requestTime},</if>
+            <if test="responseDate != null">#{responseDate},</if>
+            <if test="responseTime != null">#{responseTime},</if>
+            <if test="url != null">#{url},</if>
+            <if test="sysId != null">#{sysId},</if>
+            <if test="sysName != null">#{sysName},</if>
+            <if test="transId != null">#{transId},</if>
+            <if test="transName != null">#{transName},</if>
+            <if test="transStatus != null">#{transStatus},</if>
+            <if test="additionMsg != null">#{additionMsg},</if>
+            <if test="remark1 != null">#{remark1},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFpsMon" parameterType="FpsMon">
+        update fps_mon
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="traceid != null">traceid = #{traceid},</if>
+            <if test="requestTimestamp != null">request_timestamp = #{requestTimestamp},</if>
+            <if test="responseTimestamp != null">response_timestamp = #{responseTimestamp},</if>
+            <if test="processTime != null">process_time = #{processTime},</if>
+            <if test="requestDate != null">request_date = #{requestDate},</if>
+            <if test="requestTime != null">request_time = #{requestTime},</if>
+            <if test="responseDate != null">response_date = #{responseDate},</if>
+            <if test="responseTime != null">response_time = #{responseTime},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="sysId != null">sys_id = #{sysId},</if>
+            <if test="sysName != null">sys_name = #{sysName},</if>
+            <if test="transId != null">trans_id = #{transId},</if>
+            <if test="transName != null">trans_name = #{transName},</if>
+            <if test="transStatus != null">trans_status = #{transStatus},</if>
+            <if test="additionMsg != null">addition_msg = #{additionMsg},</if>
+            <if test="remark1 != null">remark1 = #{remark1},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFpsMonById" parameterType="String">
+        delete from fps_mon where id = #{id}
+    </delete>
+
+    <delete id="deleteFpsMonByIds" parameterType="String">
+        delete from fps_mon where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
